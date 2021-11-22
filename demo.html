@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barcode Reader Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./barcode_reader.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: #666 1px solid;
+        }
+        body > div {
+            text-align: center;
+        }
+        body > div > div {
+            text-align: center;
+            width: 500px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        body > div > div > div {
+            width: 100%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div>
+            <select name="action"><option>测试下拉框</option><option>选项1</option><option>选项2</option><option>选项3</option></select>
+        </div>
+        <div>
+            <textarea name="input" id="" cols="30" rows="10">测试输入框</textarea>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>扫描结果</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("body").BarcodeReader({
+            debug: false,
+            code_len : [12, 14, 15, 17],
+            allow_letter : false,
+            allow_number : true,
+            allow_other_char: {
+                189: '-', 109: '-'
+            },
+            end_for_tab: true,
+            end_for_enter: true,
+            letter_to_lower_case: false,
+            allow_press_interval: 200,
+            allow_down_up_interval: 150,
+            focus_check_interval: 500,
+            force_keep_focus: function (activeElement, Obj) {
+                if(activeElement.is($('select[name="action"]'))){ // 判断当前焦点是否在下拉框上
+                    console.log('焦点在select');
+                    return false;
+                }else if(activeElement.is($('textarea'))){ // 判断当前焦点是否在输入框上
+                    console.log('焦点在textarea');
+                    return false;
+                }else{
+                    return true;
+                }
+            },
+            show: function(code){
+                console.log('result', code);
+                $('tbody').append('<tr><td>' + code + '</td></tr>');
+
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
