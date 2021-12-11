@@ -1,6 +1,11 @@
 # BarcodeReader
 
-JavaScript监听条形码扫码枪输入，依赖jQuery
+JavaScript监听条形码扫码枪输入。
+
+`通过比对按下和弹起按键事件，事件堆栈不同步则丢弃输入，强制抗干扰。`
+
+`依赖jQuery`
+
 
 ## 配置选项
 

@@ -294,7 +294,7 @@
     };
     $.fn.BarcodeReader = function (options) {
         if(!this.hasOwnProperty('BarcodeReader_obj')){
-            this.BarcodeReader_obj = new BarcodeReader(this, options); // 不支持复写配置项
+            this.BarcodeReader_obj = new BarcodeReader(this, options); // TODO 不支持重写配置项
         }
         return this.BarcodeReader_obj;
     };
